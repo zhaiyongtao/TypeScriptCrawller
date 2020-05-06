@@ -3,6 +3,10 @@ import zytAnalyzer from './zytAnalyzer';
 import path from "path";
 import fs from 'fs';
 
+export interface Analyzer {
+    analyze: (html: string, filePath: string) => string;
+  }
+  
 class Crowller {
     private filePath = path.resolve(__dirname, '../data/course.json');
     async getRawHtml() {
