@@ -34,6 +34,7 @@ class Crowller {
 // 方法类实例化，使用实例化对象中的方法
 const secret = "secretKey";
 const url = `http://www.dell-lee.com/typescript/demo.html?secret=${secret}`;
-const analyzer = new zytAnalyzer (); 
+const analyzer = zytAnalyzer.getInstance (); 
 new Crowller(analyzer,url);
 
+console.log(1)

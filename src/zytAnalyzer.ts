@@ -17,7 +17,14 @@ interface Content {
 
 export default class zytAnalyzer implements Analyzer {
 
-  generateJsonContent(courseInfo: CourseResult,filePath:string) {
+private static instance: zytAnalyzer;
+static getInstance () {
+    if(!zytAnalyzer.instance) {
+        zytAnalyzer.instance = new zytAnalyzer();
+    }
+    return  zytAnalyzer.instance;
+}
+ private generateJsonContent(courseInfo: CourseResult,filePath:string) {
     let fileContent: Content = {};
     // 如果已经存在这个文件了 我们就读取这个文件
     if (fs.existsSync(filePath)) {
@@ -29,7 +36,7 @@ export default class zytAnalyzer implements Analyzer {
     
   }
 
-  getCourseInfo(html: string) {
+ private getCourseInfo(html: string) {
     const $ = cheerio.load(html);
     const courseItems = $(".course-item");
     const courseInfos: Course[] = [];
@@ -52,5 +59,9 @@ export default class zytAnalyzer implements Analyzer {
     const courseInfo = this.getCourseInfo(html);
     const fileContent = this.generateJsonContent(courseInfo, filePath);
     return JSON.stringify(fileContent);
+  }
+
+  private constructor () {
+
   }
 }
